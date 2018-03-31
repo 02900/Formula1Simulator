@@ -7,10 +7,9 @@
 #python_version  :  2.7.14
 #=======================================================================
 
-import os, time, effects;
+import os, time;
 from termcolor import cprint;
 from string import ascii_lowercase;
-from colorama import Cursor, Fore, init;
 from pyfiglet import Figlet, figlet_format;
 from colorama import Cursor, Fore, init; init();
 
@@ -26,7 +25,7 @@ def WaitForInput():
 
 def Write(file, Austin, Malasya, Monza, Russia, Silverstone):
 	with open(file + '.txt', 'w') as f:
-		print >> f, 'CIRCUIT: [Coef. Aerodinamic, Power, Weight, Time Lap]';
+		print >> f, 'CIRCUIT: [Coef. Aerodinamic, Power, Weight, Time Lap, Money Available]';
 		print >> f, 'Austin:', Austin;
 		print >> f, 'Malasya:', Malasya;
 		print >> f, 'Monza:', Monza;
@@ -39,15 +38,11 @@ def AlphabetPosition(text):
 	numbers = [LETTERS[character] for character in text if character in LETTERS];
 	return int(' '.join(numbers));
 
-def feasibility (coef, power, weight):
+def Expensive (coef, power, weight):
 	coef = 100 * (coef - 1);
 	power = 100 * (power - 1);
 	weight = 100 * (1 - weight);
-
-	if(600000*coef + 100000*power + 120000*weight <= 5000000):
-		return True;
-
-	return False;
+	return 5000000 - (600000*coef + 100000*power + 120000*weight);
 
 def msgCool (track):
 	figletText = figlet_format('\n'+track + " circuit", "cybermedium");
@@ -66,3 +61,4 @@ def PrintOptimal(optimalConfig, track=""):
 	print("Power", optimalConfig[1]);
 	print("Weight", optimalConfig[2]);
 	print("Time Lap", optimalConfig[3]);
+	print("Remaining Money", optimalConfig[4]);

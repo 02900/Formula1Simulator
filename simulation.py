@@ -31,25 +31,26 @@ def Run(track, requestInput=True):
 	weight = x1.Cells(11, utils.AlphabetPosition('F'));
 	time = x1.Cells(18, utils.AlphabetPosition('H'));
 
-	improvementRate = 1;
+	improvementRate = 5/4;
 	stepC = improvementRate * coefMax/100;
 	stepP = improvementRate * powerMax/100;
 	stepW = improvementRate * weightMin/100;
 
-	print("Calculating ...");
+	utils.Print("Calculating ... \nIt will take around one minute", 'red');
 
-	i = 0;
-	optimalConfig = [coef.Value, power.Value, weight.Value, time.Value];
+	i, j = 0, 0;
+	optimalConfig = [coef.Value, power.Value, weight.Value, time.Value, -1];
 	while coef.Value < coefMax:
 		while power.Value < powerMax:
 			while weightMin < weight.Value :
-
-				if not utils.feasibility(coef.Value, power.Value, weight.Value) :
+				j += 1;				
+				remainingMoney = utils.Expensive(coef.Value, power.Value, weight.Value);
+				if remainingMoney < 0 :
 					break;
 
 				if time.Value < optimalConfig[3]:
 					i += 1;
-					optimalConfig = [coef.Value, power.Value, weight.Value, time.Value];
+					optimalConfig = [coef.Value, power.Value, weight.Value, time.Value, remainingMoney];
 
 				weight.Value -= stepW;
 
@@ -59,9 +60,11 @@ def Run(track, requestInput=True):
 		weight.Value = weight_ini;
 		power.Value = power_ini;
 		coef.Value += stepC;
-
+		utils.WaitForSeconds(0.01);
 	x1.Application.Quit();
+
 	utils.Print("Done!", 'green');
+	utils.Print("Number of cases tested: " + str(j), 'green');
 	utils.WaitForSeconds(0.2);
 	utils.PrintOptimal(optimalConfig);
 	utils.WaitForSeconds(0.4);

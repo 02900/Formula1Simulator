@@ -12,7 +12,6 @@ from asciimatics.particles import DropScreen
 from asciimatics.exceptions import ResizeScreenError
 from asciimatics.renderers import FigletText, SpeechBubble, Rainbow, Fire
 from asciimatics.effects import Scroll, Mirage, Wipe, Cycle, Matrix, BannerText, Stars, Print
-from random import randint
 
 def demo(screen):
     effects = [

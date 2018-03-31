@@ -8,7 +8,6 @@
 #=======================================================================
 
 import sys, simulation, utils
-from asciimatics.screen import Screen
 
 welcome = True;
 mainMenu = True;
@@ -26,7 +25,7 @@ def inputNumber(message):
     except ValueError:
        print("Sorry, I didn't understand that. This input not match wiht any option. Try again.");
        continue;
-    if userInput < 0 or (userInput > 3 and mainMenu) or (userInput > 6 and userInput != 9 and not mainMenu):
+    if userInput < 0 or (userInput > 3 and mainMenu) or (userInput > 5 and userInput != 9 and not mainMenu):
         print("This input not match wiht any option. Try again.");
         continue;
     elif((userInput == 2 or userInput == 3) and (mainMenu)
@@ -74,32 +73,32 @@ def simulators():
     print "3. Monza";
     print "4. Russia";
     print "5. Silverstone";
-    print "6. Execute on circuits that have not been simulated";
-    print "9. Back"
-    print "0. Quit"
+    #print "6. Execute all circuits that have not been simulated";
+    print "\n9. Back"
+    print "0. Quit\n"
 
     choice = inputNumber(" >>  ")
     exec_menu(choice)
     return
  
 def stadistics():
-    if (len(Austin) == 4):
+    if (len(Austin) != 0):
         utils.PrintOptimal(Austin, "Austin");
         utils.WaitForSeconds(0.4);
 
-    if (len(Malasya) == 4):
+    if (len(Malasya) != 0):
         utils.PrintOptimal(Malasya, "Malasya");
         utils.WaitForSeconds(0.4);
 
-    if (len(Monza) == 4):
+    if (len(Monza) != 0):
         utils.PrintOptimal(Monza, "Monza");
         utils.WaitForSeconds(0.4);
 
-    if (len(Russia) == 4):
+    if (len(Russia) != 0):
         utils.PrintOptimal(Russia, "Russia");
         utils.WaitForSeconds(0.4);
 
-    if (len(Silverstone) == 4):
+    if (len(Silverstone) != 0):
         utils.PrintOptimal(Silverstone, "Silverstone");
         utils.WaitForSeconds(0.4);
 
@@ -135,19 +134,39 @@ def ParseOptions(option):
 
     else:
         if (option == 1):
-            Austin = simulation.Run("Austin");
+            if (len(Austin) == 0):
+                Austin = simulation.Run("Austin");
+            else:
+                print("The parameters of the race car for this circuit have already been calculated previously")
+                utils.WaitForSeconds(2);
 
         elif (option == 2):
-            Malasya = simulation.Run("Malasya");
+            if (len(Malasya) == 0):
+                Malasya = simulation.Run("Malasya");
+            else:
+                print("The parameters of the race car for this circuit have already been calculated previously")
+                utils.WaitForSeconds(2);
 
         elif (option == 3):
-            Monza = simulation.Run("Monza");
+            if (len(Monza) == 0):
+                Monza = simulation.Run("Monza");
+            else:
+                print("The parameters of the race car for this circuit have already been calculated previously")
+                utils.WaitForSeconds(2);
 
         elif (option == 4):
-            Russia = simulation.Run("Russia");
+            if (len(Russia) == 0):
+                Russia = simulation.Run("Russia");
+            else:
+                print("The parameters of the race car for this circuit have already been calculated previously")
+                utils.WaitForSeconds(2);
 
         elif (option == 5):
-            Silverstone = simulation.Run("Silverstone");
+            if (len(Silverstone) == 0):
+                Silverstone = simulation.Run("Silverstone");
+            else:
+                print("The parameters of the race car for this circuit have already been calculated previously")
+                utils.WaitForSeconds(2);
 
         elif (option == 6):
             if (len(Austin) == 0):
@@ -160,7 +179,7 @@ def ParseOptions(option):
                 Russia = simulation.Run("Russia", False);
             if (len(Silverstone) == 0):
                 Silverstone = simulation.Run("Silverstone", False);
-
+                
         MainMenu();
 
     print "Invalid selection, please try again.\n";

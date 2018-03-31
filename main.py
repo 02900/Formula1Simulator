@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #title           :	main.py
 #description     :	Simulator of Formula 1 on CLI
