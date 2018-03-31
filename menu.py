@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+#title           :  menu.py
+#description     :  Menu options
+#author          :  Juan Ortiz
+#date            :  30 March 2018
+#version         :  0.1
+#python_version  :  2.7.14
+#=======================================================================
+
 import sys, simulation, utils
 from asciimatics.screen import Screen
 
@@ -10,8 +19,26 @@ Monza = [];
 Russia = [];
 Silverstone = [];
 
+def inputNumber(message):
+  while True:
+    try:
+       userInput = int(raw_input(message));   
+    except ValueError:
+       print("Sorry, I didn't understand that. This input not match wiht any option. Try again.");
+       continue;
+    if userInput < 0 or (userInput > 3 and mainMenu) or (userInput > 6 and userInput != 9 and not mainMenu):
+        print("This input not match wiht any option. Try again.");
+        continue;
+    elif((userInput == 2 or userInput == 3) and (mainMenu)
+        and (len(Austin) == len(Malasya) == len(Monza) == len(Silverstone) == len(Russia) == 0)):
+        print ("You must first run a simulator");
+        continue;
+    else:
+       return userInput 
+       break 
+
 # Main menu
-def main_menu():
+def MainMenu():
     utils.Clear();
     global mainMenu, welcome;
     mainMenu = True;
@@ -24,10 +51,11 @@ def main_menu():
     print("\n")
     utils.Print ("Please choose the option that you want:", 'blue');
     print "1. Run a Simulator";
-    print "2. Show stadistics (You must first run a simulator)";
-    print "\n0. Quit";
+    print "2. Show stadistics";
+    print "3. Save stadistics as .txt file";
+    print "\n0. Quit\n";
  
-    choice = input(" >>  ");
+    choice = inputNumber(" >>  ");
     exec_menu(choice);
     return
  
@@ -39,17 +67,18 @@ def exec_menu(choice):
  
 def simulators():
 
-    utils.Print("\nSelect a circuit to start the simulation!\n", 'blue');
+    utils.Print("\nSelect a circuit to start the simulation!", 'blue');
+    utils.Print("(This will take approximately 1 minute for each track)\n\n", 'red');
     print "1. Austin";
     print "2. Malasya";
     print "3. Monza";
     print "4. Russia";
     print "5. Silverstone";
-    print "6. RUN ALL";
+    print "6. Execute on circuits that have not been simulated";
     print "9. Back"
     print "0. Quit"
 
-    choice = raw_input(" >>  ")
+    choice = inputNumber(" >>  ")
     exec_menu(choice)
     return
  
@@ -74,15 +103,15 @@ def stadistics():
         utils.PrintOptimal(Silverstone, "Silverstone");
         utils.WaitForSeconds(0.4);
 
-    if (len(Austin) == len(Malasya) == len(Monza) == len(Silverstone) == len(Russia) == 0):
-        print ("You must first run a simulator");
-
-    utils.WaitForSeconds(1);
-    print ("\nPress 'ENTER' to continue");    
-    raw_input(" >>  ");
+    utils.WaitForSeconds(0.4);
+    utils.WaitForInput();
 
     return
  
+def Save():
+    utils.Print("Enter the filename", 'red');
+    utils.Write(raw_input(' >> '), Austin, Malasya, Monza, Russia, Silverstone);
+
 def exit():
     sys.exit();
  
@@ -99,7 +128,10 @@ def ParseOptions(option):
             simulators();
         elif (option == 2):
             stadistics();
-            main_menu();
+            MainMenu();
+        elif (option == 3):
+            Save();
+            MainMenu();
 
     else:
         if (option == 1):
@@ -118,14 +150,19 @@ def ParseOptions(option):
             Silverstone = simulation.Run("Silverstone");
 
         elif (option == 6):
-            Austin = simulation.Run("Austin");
-            Malasya = simulation.Run("Malasya");
-            Monza = simulation.Run("Monza");
-            Russia = simulation.Run("Russia");
-            Silverstone = simulation.Run("Silverstone");
+            if (len(Austin) == 0):
+                Austin = simulation.Run("Austin", False);
+            if (len(Malasya) == 0):
+                Malasya = simulation.Run("Malasya", False);
+            if (len(Monza) == 0):
+                Monza = simulation.Run("Monza", False);
+            if (len(Russia) == 0):
+                Russia = simulation.Run("Russia", False);
+            if (len(Silverstone) == 0):
+                Silverstone = simulation.Run("Silverstone", False);
 
-        main_menu();
+        MainMenu();
 
     print "Invalid selection, please try again.\n";
     utils.WaitForSeconds(2);
-    main_menu();
+    MainMenu();

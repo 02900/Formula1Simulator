@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+#title           :  intro.py
+#description     :  Intro of the program
+#author          :  asciimatics example
+#version         :  0.1
+#python_version  :  2.7.14
+#=======================================================================
 from __future__ import division
 from asciimatics.scene import Scene
 from asciimatics.screen import Screen

@@ -1,6 +1,15 @@
+# -*- coding: utf-8 -*-
+#title           :  simulation.py
+#description     :  Calculate the best values for the parameters of a race car
+#author          :  Juan Ortiz
+#date            :  30 March 2018
+#version         :  0.1
+#python_version  :  2.7.14
+#=======================================================================
+
 import utils, win32com.client
 
-def Run(track):
+def Run(track, requestInput=True):
 	utils.msgCool(track)
 	utils.Print("Initializing the simulator ...", 'green');
 	path = track+'.xlsx';
@@ -22,9 +31,10 @@ def Run(track):
 	weight = x1.Cells(11, utils.AlphabetPosition('F'));
 	time = x1.Cells(18, utils.AlphabetPosition('H'));
 
-	stepC = 0.05 * coefMax;
-	stepP = 0.05 * powerMax;
-	stepW = 0.03 * weightMin;
+	improvementRate = 1;
+	stepC = improvementRate * coefMax/100;
+	stepP = improvementRate * powerMax/100;
+	stepW = improvementRate * weightMin/100;
 
 	print("Calculating ...");
 
@@ -40,8 +50,6 @@ def Run(track):
 				if time.Value < optimalConfig[3]:
 					i += 1;
 					optimalConfig = [coef.Value, power.Value, weight.Value, time.Value];
-					#print ("\nA new optimal has been found");
-					#utils.PrintOptimal(optimalConfig);
 
 				weight.Value -= stepW;
 
@@ -54,8 +62,10 @@ def Run(track):
 
 	x1.Application.Quit();
 	utils.Print("Done!", 'green');
+	utils.WaitForSeconds(0.2);
 	utils.PrintOptimal(optimalConfig);
-	utils.WaitForSeconds(2);
+	utils.WaitForSeconds(0.4);
+	if (requestInput):
+		utils.WaitForInput();
 	return optimalConfig;
-	#print("Number of values founded", i);
     

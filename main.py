@@ -9,7 +9,7 @@
 #python_version  :	2.7.14
 #=======================================================================
 
-import effects, utils, menu, credits
+import intro, utils, menu
 utils.Clear();
-effects.Start();
-menu.main_menu()
+intro.Start();
+menu.MainMenu()

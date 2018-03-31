@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+#title           :  utils.py
+#description     :  Multiple utility fuctions
+#author          :  Juan Ortiz
+#date            :  30 March 2018
+#version         :  0.1
+#python_version  :  2.7.14
+#=======================================================================
+
 import os, time, effects;
 from termcolor import cprint;
 from string import ascii_lowercase;
@@ -11,11 +20,24 @@ def Clear():
 def WaitForSeconds(sec):
 	time.sleep(sec);
 
+def WaitForInput():
+	print ("\nPress 'ENTER' to continue");    
+	raw_input(" >>  ");
+
+def Write(file, Austin, Malasya, Monza, Russia, Silverstone):
+	with open(file + '.txt', 'w') as f:
+		print >> f, 'CIRCUIT: [Coef. Aerodinamic, Power, Weight, Time Lap]';
+		print >> f, 'Austin:', Austin;
+		print >> f, 'Malasya:', Malasya;
+		print >> f, 'Monza:', Monza;
+		print >> f, 'Russia:', Russia;
+		print >> f, 'Silverstone:', Silverstone;
+
 LETTERS = {letter: str(index) for index, letter in enumerate(ascii_lowercase, start=1)} 
 def AlphabetPosition(text):
-    text = text.lower();
-    numbers = [LETTERS[character] for character in text if character in LETTERS];
-    return int(' '.join(numbers));
+	text = text.lower();
+	numbers = [LETTERS[character] for character in text if character in LETTERS];
+	return int(' '.join(numbers));
 
 def feasibility (coef, power, weight):
 	coef = 100 * (coef - 1);
@@ -27,7 +49,6 @@ def feasibility (coef, power, weight):
 
 	return False;
 
-#cybermedium, , graffiti, , eftiwater, larry3d
 def msgCool (track):
 	figletText = figlet_format('\n'+track + " circuit", "cybermedium");
 	cprint(figletText, 'blue', attrs=['dark']);
