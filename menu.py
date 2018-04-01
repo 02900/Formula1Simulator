@@ -25,7 +25,7 @@ def inputNumber(message):
     except ValueError:
        print("Sorry, I didn't understand that. This input not match wiht any option. Try again.");
        continue;
-    if userInput < 0 or (userInput > 3 and mainMenu) or (userInput > 5 and userInput != 9 and not mainMenu):
+    if userInput < 0 or (userInput > 3 and mainMenu) or (userInput > 6 and userInput != 9 and not mainMenu):
         print("This input not match wiht any option. Try again.");
         continue;
     elif((userInput == 2 or userInput == 3) and (mainMenu)
@@ -73,7 +73,7 @@ def simulators():
     print "3. Monza";
     print "4. Russia";
     print "5. Silverstone";
-    #print "6. Execute all circuits that have not been simulated";
+    print "6. Execute all circuits that have not been simulated";
     print "\n9. Back"
     print "0. Quit\n"
 
@@ -84,23 +84,23 @@ def simulators():
 def stadistics():
     if (len(Austin) != 0):
         utils.PrintOptimal(Austin, "Austin");
-        utils.WaitForSeconds(0.4);
+        utils.WaitForSeconds(0.2);
 
     if (len(Malasya) != 0):
         utils.PrintOptimal(Malasya, "Malasya");
-        utils.WaitForSeconds(0.4);
+        utils.WaitForSeconds(0.2);
 
     if (len(Monza) != 0):
         utils.PrintOptimal(Monza, "Monza");
-        utils.WaitForSeconds(0.4);
+        utils.WaitForSeconds(0.2);
 
     if (len(Russia) != 0):
         utils.PrintOptimal(Russia, "Russia");
-        utils.WaitForSeconds(0.4);
+        utils.WaitForSeconds(0.2);
 
     if (len(Silverstone) != 0):
         utils.PrintOptimal(Silverstone, "Silverstone");
-        utils.WaitForSeconds(0.4);
+        utils.WaitForSeconds(0.2);
 
     utils.WaitForSeconds(0.4);
     utils.WaitForInput();

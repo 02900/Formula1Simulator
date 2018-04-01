@@ -31,40 +31,52 @@ def Run(track, requestInput=True):
 	weight = x1.Cells(11, utils.AlphabetPosition('F'));
 	time = x1.Cells(18, utils.AlphabetPosition('H'));
 
-	improvementRate = 5/4;
+	coef_it = coef.Value;
+	power_it = power.Value;
+	weight_it = weight.Value;
+
+	improvementRate = 0.5;
 	stepC = improvementRate * coefMax/100;
 	stepP = improvementRate * powerMax/100;
 	stepW = improvementRate * weightMin/100;
 
 	utils.Print("Calculating ... \nIt will take around one minute", 'red');
 
-	i, j = 0, 0;
-	optimalConfig = [coef.Value, power.Value, weight.Value, time.Value, -1];
-	while coef.Value < coefMax:
-		while power.Value < powerMax:
-			while weightMin < weight.Value :
-				j += 1;				
-				remainingMoney = utils.Expensive(coef.Value, power.Value, weight.Value);
+	i, j, k = 0, 0, 0;
+	optimalConfig = [coef_it, power_it, weight_it, time.Value, -1];
+	while coef_it < coefMax:
+		while power_it < powerMax:
+			while weightMin < weight_it :
+
+				j += 1;		
+				remainingMoney = utils.Expensive(coef_it, power_it, weight_it);
 				if remainingMoney < 0 :
 					break;
 
+				k += 1;
+				weight.Value = weight_it;
+				power.Value = power_it;
+				coef.Value = coef_it;
+
 				if time.Value < optimalConfig[3]:
 					i += 1;
-					optimalConfig = [coef.Value, power.Value, weight.Value, time.Value, remainingMoney];
+					optimalConfig = [coef_it, power_it, weight_it, time.Value, remainingMoney];
 
-				weight.Value -= stepW;
+				weight_it -= stepW;
 
-			weight.Value = weight_ini;
-			power.Value +=stepP;
+			weight_it = weight_ini;
+			power_it += stepP;
 
-		weight.Value = weight_ini;
-		power.Value = power_ini;
-		coef.Value += stepC;
+		weight_it = weight_ini;
+		power_it = power_ini;
+		coef_it += stepC;
 		utils.WaitForSeconds(0.01);
-	x1.Application.Quit();
 
+	x1.Application.Quit();
 	utils.Print("Done!", 'green');
 	utils.Print("Number of cases tested: " + str(j), 'green');
+	utils.Print("Number of cases que no se exceden del presupuesto: " + str(k), 'green');
+	utils.Print("Optimal iterations: " + str(i), 'green');
 	utils.WaitForSeconds(0.2);
 	utils.PrintOptimal(optimalConfig);
 	utils.WaitForSeconds(0.4);

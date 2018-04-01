@@ -25,7 +25,7 @@ def WaitForInput():
 
 def Write(file, Austin, Malasya, Monza, Russia, Silverstone):
 	with open(file + '.txt', 'w') as f:
-		print >> f, 'CIRCUIT: [Coef. Aerodinamic, Power, Weight, Time Lap, Money Available]';
+		print >> f, 'CIRCUIT: [Coef. Aerodinamic, Power, Weight, Time Lap, Remaining Money]';
 		print >> f, 'Austin:', Austin;
 		print >> f, 'Malasya:', Malasya;
 		print >> f, 'Monza:', Monza;
