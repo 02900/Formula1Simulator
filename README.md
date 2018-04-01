@@ -1,4 +1,4 @@
-# Formula 1 Track Simultor
+# Formula 1 Track Simulator
 This is a script to calculate a configuration close to the optimal of a race car of Formula 1 on a multiple tracks of a Championship 
 
 ## Prerequisites
