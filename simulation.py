@@ -40,9 +40,9 @@ def Run(track, requestInput=True):
 	stepP = improvementRate * powerMax/100;
 	stepW = improvementRate * weightMin/100;
 
-	utils.Print("Calculating ... \nIt will take around one minute", 'red');
+	utils.Print("Calculating ... \nIt will take a few seconds", 'red');
 
-	i, j, k = 0, 0, 0;
+	i, j= 0, 0;
 	optimalConfig = [coef_it, power_it, weight_it, time.Value, -1];
 	while coef_it < coefMax:
 		while power_it < powerMax:
@@ -53,7 +53,6 @@ def Run(track, requestInput=True):
 				if remainingMoney < 0 :
 					break;
 
-				k += 1;
 				weight.Value = weight_it;
 				power.Value = power_it;
 				coef.Value = coef_it;
@@ -75,7 +74,6 @@ def Run(track, requestInput=True):
 	x1.Application.Quit();
 	utils.Print("Done!", 'green');
 	utils.Print("Number of cases tested: " + str(j), 'green');
-	utils.Print("Number of cases que no se exceden del presupuesto: " + str(k), 'green');
 	utils.Print("Optimal iterations: " + str(i), 'green');
 	utils.WaitForSeconds(0.2);
 	utils.PrintOptimal(optimalConfig);

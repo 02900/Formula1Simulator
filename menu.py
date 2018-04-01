@@ -66,8 +66,7 @@ def exec_menu(choice):
  
 def simulators():
 
-    utils.Print("\nSelect a circuit to start the simulation!", 'blue');
-    utils.Print("(This will take approximately 1 minute for each track)\n\n", 'red');
+    utils.Print("\nSelect a circuit to start the simulation!\n\n", 'blue');
     print "1. Austin";
     print "2. Malasya";
     print "3. Monza";
