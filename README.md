@@ -17,7 +17,7 @@ This is a script to calculate a configuration close to the optimal of a race car
 ### Presentation
 ![alt text](https://raw.githubusercontent.com/smirchad/Python-and-Excel/master/imgs/Portada.png)
 ### Main Menu
-![alt text](https://raw.githubusercontent.com/smirchad/Python-and-Excel/master/imgs/Main%20Menu.png.png)
+![alt text](https://raw.githubusercontent.com/smirchad/Python-and-Excel/master/imgs/Main%20Menu.png)
 ### Select track
 ![alt text](https://raw.githubusercontent.com/smirchad/Python-and-Excel/master/imgs/simulator%20choose.png)
 ### Show Results
