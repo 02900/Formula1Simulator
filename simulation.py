@@ -18,8 +18,8 @@ def Run(track, requestInput=True):
 	x1.DisplayAlerts = False;
 
 	# Constraints
-	powerMax = 14.457831;
-	coefMax = 8.33333;
+	coefMax = 1.0833333;
+	powerMax = 1.14457831;
 	weightMin = 0.85666;
 
 	coef_ini = x1.Cells(9, utils.AlphabetPosition('G')).Value;
@@ -35,7 +35,7 @@ def Run(track, requestInput=True):
 	power_it = power.Value;
 	weight_it = weight.Value;
 
-	improvementRate = 0.5;
+	improvementRate = 0.8;
 	stepC = improvementRate * coefMax/100;
 	stepP = improvementRate * powerMax/100;
 	stepW = improvementRate * weightMin/100;
@@ -69,7 +69,6 @@ def Run(track, requestInput=True):
 		weight_it = weight_ini;
 		power_it = power_ini;
 		coef_it += stepC;
-		utils.WaitForSeconds(0.01);
 
 	x1.Application.Quit();
 	utils.Print("Done!", 'green');
